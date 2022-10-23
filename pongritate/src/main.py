@@ -94,3 +94,69 @@ while not(playButtonPressed):
     screen.blit(TITLE, (titlePositionX, titlePositionY))
 
     pygame.display.update()
+
+
+
+
+PADDLE = pygame.image.load(f"{os.getcwd()}\\pongritate\\assets\\paddle.png")
+BALL = pygame.image.load(f"{os.getcwd()}\\pongritate\\assets\\ball.png")  
+
+score = 0
+highScore = json.load(open(f"{os.getcwd()}\\pongritate\\data\\savedata.json"))["highScore"]
+
+mouseX, mouseY, clicked = 0, 0, False
+paddleX, paddleY = 0, 0
+ballX, ballY = 0, 0
+ballXVel, ballYVel = 0, 10
+
+
+def tick(code):
+    global mouseX, mouseY, clicked
+    
+    if code == "screen":
+        pygame.display.flip()
+        screen.fill(BACKGROUNDCOLOR)
+        pygame.time.Clock().tick(60)
+
+    if code == "physics":
+        print(0)
+
+    if code == "mouse":      
+        mouseX = pygame.mouse.get_pos()[0]
+        mouseY = pygame.mouse.get_pos()[1]
+        if pygame.mouse.get_pressed() == (1, 0, 0):
+            clicked = True
+
+def paddle(x, y):
+    screen.blit(PADDLE, (x, y))
+
+def ball(x, y):
+    screen.blit(BALL, (x, y))
+
+def update():
+    global ballX, ballY, ballXVel, ballYVel
+    
+    tick("mouse")
+    
+    paddleX, paddleY = mouseX, (screen.get_height() / 4) * 3
+    paddle(paddleX, paddleY)
+    
+    ballX -= ballXVel
+    ballY -= ballYVel
+    
+    if not(ballXVel <= 0):
+        ballXVel -= 1
+    ballYVel -= 1
+    
+    ball(ballX, ballY)
+
+
+while True:
+    
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            sys.exit()
+    
+    update()
+    
+    tick("screen")
