@@ -48,8 +48,8 @@ while not(playButtonPressed):
             sys.exit()
 
     if (
-        pygame.mouse.get_pos()[0] >= 440
-        and pygame.mouse.get_pos()[0] <= 640
+        pygame.mouse.get_pos()[0] >= (screen.get_width() / 2) - (playButtonSize / 2)
+        and pygame.mouse.get_pos()[0] <= ((screen.get_width() / 2) - (playButtonSize / 2)) + playButtonSize
         and pygame.mouse.get_pos()[1] >= 440
         and pygame.mouse.get_pos()[1] <= 523
     ):
