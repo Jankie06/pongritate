@@ -144,22 +144,15 @@ def ball(x, y):
 
 
 def update():
-    global ballX, ballY, ballXVel, ballYVel, colliding, paddleColl, ballColl, randomVel, screen
+    global ballX, ballY, ballXVel, ballYVel, colliding, paddleColl, ballColl, randomVel, screen, score
 
     tick("mouse")
-
+    
     paddleX, paddleY = mouseX, (screen.get_height() / 4) * 3
     paddle(paddleX, paddleY)
-
-    ballX += ballXVel
-    ballY -= ballYVel
-
     
-    ballXVel = (randomVel - ballX) / 50
-    ballYVel -= 1
-
-    ball(ballX, ballY)
-
+    
+    
     ballColl, paddleColl, colliding = (
         pygame.Rect(ballX, ballY, 100, 100),
         pygame.Rect(paddleX, paddleY, 100, 100),
@@ -176,8 +169,20 @@ def update():
         
     if colliding:
         ballYVel = 30
-        randomVel = random.randint(-100, screen.get_width()+100)
+        randomVel = random.randint(-200, screen.get_width()+200)
+        score += 1
         #ballXVel = randomVel
+
+
+
+    ballX += ballXVel
+    ballY -= ballYVel
+
+    
+    ballXVel = (randomVel - ballX) / 50
+    ballYVel -= 1
+
+    ball(ballX, ballY)
         
 
 
