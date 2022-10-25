@@ -101,14 +101,23 @@ while not (playButtonPressed):
 
 SCREEN = screen.get_rect()
 
-PADDLE = pygame.image.load(f"{os.getcwd()}\\pongritate\\assets\\paddle.png")
-BALL = pygame.image.load(f"{os.getcwd()}\\pongritate\\assets\\ball.png")
+PADDLE, paddleW = (
+    pygame.transform.scale(
+        pygame.image.load(f"{os.getcwd()}\\pongritate\\assets\\paddle.png"), (50, 50)
+    ),
+    50,
+)
+BALL = pygame.transform.scale(
+    pygame.image.load(f"{os.getcwd()}\\pongritate\\assets\\ball.png"), (50, 50)
+)
+FONT = pygame.font.Font(
+    f"{os.getcwd()}\\pongritate\\fonts\\FredokaOne.ttf", round(playButtonSize / 4.4)
+)
 
 score = 0
 highScore = json.load(open(f"{os.getcwd()}\\pongritate\\data\\savedata.json"))[
     "highScore"
 ]
-
 
 mouseX, mouseY, clicked = 0, 0, False
 paddleX, paddleY = 0, 0
@@ -122,7 +131,7 @@ def tick(code):
     if code == "screen":
         pygame.display.flip()
         pygame.time.Clock().tick(60)
-        
+
         screen.fill(BACKGROUNDCOLOR)
 
     if code == "physics":
@@ -143,47 +152,56 @@ def ball(x, y):
     screen.blit(BALL, (x, y))
 
 
+def placeScore():
+    global score, font
+
+    text = font.render(str(score), True, WHITE)
+    textpos = text.get_rect(
+        centerx=screen.get_width() / 2, y=(screen.get_height() / 8) * 7
+    )
+    screen.blit(text, textpos)
+
+
 def update():
-    global ballX, ballY, ballXVel, ballYVel, colliding, paddleColl, ballColl, randomVel, screen, score
+    global ballX, ballY, ballXVel, ballYVel, colliding, paddleColl, ballColl, randomVel, screen, score, paddleW
 
     tick("mouse")
-    
-    paddleX, paddleY = mouseX, (screen.get_height() / 4) * 3
+
+    paddleX, paddleY = mouseX - paddleW / 2, (screen.get_height() / 4) * 3
     paddle(paddleX, paddleY)
-    
-    
+
+    ballXVel = (randomVel - ballX) / 50
+    ballYVel -= 1
+
+    ballX += ballXVel
+    ballY -= ballYVel
+    print(ballY)
     
     ballColl, paddleColl, colliding = (
-        pygame.Rect(ballX, ballY, 100, 100),
-        pygame.Rect(paddleX, paddleY, 100, 100),
+        pygame.Rect(ballX, ballY, 50, 50),
+        pygame.Rect(paddleX, paddleY, 50, 48),
         False,
     )
-
+        
     colliding = pygame.Rect.colliderect(ballColl, paddleColl)
 
-    if ballX >= screen.get_width()-100 or ballX <= 0:
+    if ballX >= screen.get_width() - 100 or ballX <= 0:
         if ballX > 0:
             randomVel -= 100
         elif ballX < 0:
             randomVel += 100
-        
+
     if colliding:
         ballYVel = 30
-        randomVel = random.randint(-200, screen.get_width()+200)
+        ballY -= ballYVel
+        randomVel = random.randint(-300, screen.get_width() + 300)
         score += 1
-        #ballXVel = randomVel
-
-
-
-    ballX += ballXVel
-    ballY -= ballYVel
-
-    
-    ballXVel = (randomVel - ballX) / 50
-    ballYVel -= 1
-
-    ball(ballX, ballY)
+        print("HIT BALL")
+        # ballXVel = randomVel
         
+    ball(ballX, ballY)
+    
+    placeScore()
 
 
 while True:
