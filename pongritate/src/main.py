@@ -14,17 +14,13 @@ fullscreenWidth, fullscreenHeight = (
     pygame.display.get_desktop_sizes()[0][1],
 )
 
-if json.load(open(f"{os.getcwd()}\\pongritate\\data\\savedata.json"))["settings"][
-    "fullscreen"
-]:
-    screen = pygame.display.set_mode(
-        (fullscreenWidth, fullscreenHeight), pygame.FULLSCREEN
-    )
-    width, height = fullscreenWidth, fullscreenHeight
+version = 0 #LOAD FILE
 
-else:
-    screen = pygame.display.set_mode((windowedWidth, windowedHeight), pygame.RESIZABLE)
-    width, height = windowedWidth, windowedHeight
+screen = pygame.display.set_mode((windowedWidth, windowedHeight), pygame.RESIZABLE)
+width, height = windowedWidth, windowedHeight
+
+pygame.display.set_caption("Pongritate " + str(version))
+pygame.display.set_icon(pygame.image.load(f"{os.getcwd()}\\pongritate\\assets\\ball.png"))
 
 playButtonSize = 200
 
