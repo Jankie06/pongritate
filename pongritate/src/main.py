@@ -201,8 +201,6 @@ while True:
         
         if ballY >= 1000:
             dead = True
-            
-        print(ballY)
 
     dead = False
     while not dead:
