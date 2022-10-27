@@ -1,9 +1,0 @@
-{
-    "name": "guest",
-    "highScore": 0, 
-    "version": "0.1a", 
-    "versionPhase": "prototype", 
-    "settings": {
-        "fullscreen": false
-    }
-}
