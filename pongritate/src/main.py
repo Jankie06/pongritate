@@ -14,7 +14,7 @@ fullscreenWidth, fullscreenHeight = (
     pygame.display.get_desktop_sizes()[0][1],
 )
 
-version = "0.1a Alpha"
+version = "0.1b Alpha"
 
 screen = pygame.display.set_mode((windowedWidth, windowedHeight), pygame.RESIZABLE)
 width, height = windowedWidth, windowedHeight
@@ -113,9 +113,6 @@ while True:
     )
 
     score = 0
-    highScore = json.load(open(f"{os.getcwd()}\\data\\savedata.json"))[
-        "highScore"
-    ]
 
     mouseX, mouseY, clicked = 0, 0, False
     paddleX, paddleY = 0, 0
