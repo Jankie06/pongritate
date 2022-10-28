@@ -20,7 +20,7 @@ screen = pygame.display.set_mode((windowedWidth, windowedHeight), pygame.RESIZAB
 width, height = windowedWidth, windowedHeight
 
 pygame.display.set_caption("Pongritate " + str(version))
-pygame.display.set_icon(pygame.image.load(f"{os.getcwd()}\\pongritate\\assets\\ball.png"))
+pygame.display.set_icon(pygame.image.load(f"{os.getcwd()}\\assets\\ball.png"))
 
 while True:
 
@@ -31,7 +31,7 @@ while True:
     PLAYBUTTONCOLOR = (55, 55, 55)
     BACKGROUNDCOLOR = (43, 43, 43)
 
-    TITLE = pygame.image.load(f"{os.getcwd()}\\pongritate\\assets\\title.png")
+    TITLE = pygame.image.load(f"{os.getcwd()}\\assets\\title.png")
     titlePositionX, titlePositionY = (screen.get_width() / 2) - (720 / 2), (
         height / 3
     ) - 300
@@ -85,7 +85,7 @@ while True:
             border_radius=500,
         )
         font = pygame.font.Font(
-            f"{os.getcwd()}\\pongritate\\fonts\\FredokaOne.ttf", round(playButtonSize / 4.4)
+            f"{os.getcwd()}\\fonts\\FredokaOne.ttf", round(playButtonSize / 4.4)
         )
         text = font.render("Play", True, WHITE)
         textpos = text.get_rect(
@@ -101,19 +101,19 @@ while True:
 
     PADDLE, paddleW = (
         pygame.transform.scale(
-            pygame.image.load(f"{os.getcwd()}\\pongritate\\assets\\paddle.png"), (50, 50)
+            pygame.image.load(f"{os.getcwd()}\\assets\\paddle.png"), (50, 50)
         ),
         50,
     )
     BALL = pygame.transform.scale(
-        pygame.image.load(f"{os.getcwd()}\\pongritate\\assets\\ball.png"), (50, 50)
+        pygame.image.load(f"{os.getcwd()}\\assets\\ball.png"), (50, 50)
     )
     FONT = pygame.font.Font(
-        f"{os.getcwd()}\\pongritate\\fonts\\FredokaOne.ttf", round(playButtonSize / 4.4)
+        f"{os.getcwd()}\\fonts\\FredokaOne.ttf", round(playButtonSize / 4.4)
     )
 
     score = 0
-    highScore = json.load(open(f"{os.getcwd()}\\pongritate\\data\\savedata.json"))[
+    highScore = json.load(open(f"{os.getcwd()}\\data\\savedata.json"))[
         "highScore"
     ]
 
